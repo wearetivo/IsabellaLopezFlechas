@@ -605,7 +605,7 @@
   <div class="fine">Invitación digital hecha a la medida para Isabella</div>
 </footer>
 
-<audio id="bgAudio" loop preload="none"></audio>
+<div id="ytPlayerWrap" style="position:fixed; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none; bottom:0; left:0;"></div>
 
 <!-- LIGHTBOX -->
 <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
@@ -622,10 +622,43 @@
     const wrap = document.getElementById('envelopeWrap');
     if(wrap.classList.contains('open')) return;
     wrap.classList.add('open');
+    startMusic();
     setTimeout(function(){
       document.getElementById('envelopeScreen').classList.add('hidden');
       document.getElementById('welcomeOverlay').classList.remove('hidden');
     }, 1050);
+  }
+
+  function startMusic(){
+    const wrap = document.getElementById('ytPlayerWrap');
+    if(document.getElementById('ytAudio')){
+      postYT('playVideo');
+    } else {
+      const iframe = document.createElement('iframe');
+      iframe.id = 'ytAudio';
+      iframe.width = '1';
+      iframe.height = '1';
+      iframe.style.border = '0';
+      iframe.allow = 'autoplay; encrypted-media';
+      iframe.src = 'https://www.youtube.com/embed/JFYedt-KnB0?autoplay=1&loop=1&playlist=JFYedt-KnB0&controls=0&enablejsapi=1&modestbranding=1&rel=0';
+      wrap.appendChild(iframe);
+    }
+    playing = true;
+    setAudioIcon(true);
+  }
+
+  function postYT(func){
+    const iframe = document.getElementById('ytAudio');
+    if(iframe && iframe.contentWindow){
+      iframe.contentWindow.postMessage(JSON.stringify({event:'command', func:func, args:[]}), '*');
+    }
+  }
+
+  function setAudioIcon(isPlaying){
+    const icon = document.getElementById('audioIcon');
+    icon.innerHTML = isPlaying
+      ? '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>'
+      : '<path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/>';
   }
 
   const target = new Date("2026-09-12T18:00:00-05:00").getTime();
@@ -706,15 +739,14 @@
 
   let playing = false;
   function toggleAudio(){
-    const audio = document.getElementById('bgAudio');
-    const icon = document.getElementById('audioIcon');
-    if(!audio.src) return; // no track configured
-    if(playing){ audio.pause(); }
-    else { audio.play(); }
+    if(!document.getElementById('ytAudio')){
+      startMusic();
+      return;
+    }
+    if(playing){ postYT('pauseVideo'); }
+    else { postYT('playVideo'); }
     playing = !playing;
-    icon.innerHTML = playing
-      ? '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>'
-      : '<path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/>';
+    setAudioIcon(playing);
   }
 </script>
 
