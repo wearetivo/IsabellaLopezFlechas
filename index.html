@@ -605,7 +605,7 @@
   <div class="fine">Invitación digital hecha a la medida para Isabella</div>
 </footer>
 
-<div id="ytPlayerWrap" style="position:fixed; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none; bottom:0; left:0;"></div>
+<audio id="bgAudio" loop preload="none" src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/95a65548d9e88ef5e428316419527c37db7c02ca/Dove%20Cameron%20-%20If%20Only%20%28from%20Descendants%29%20%28Official%20Video%29.mp3"></audio>
 
 <!-- LIGHTBOX -->
 <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
@@ -630,28 +630,12 @@
   }
 
   function startMusic(){
-    const wrap = document.getElementById('ytPlayerWrap');
-    if(document.getElementById('ytAudio')){
-      postYT('playVideo');
-    } else {
-      const iframe = document.createElement('iframe');
-      iframe.id = 'ytAudio';
-      iframe.width = '1';
-      iframe.height = '1';
-      iframe.style.border = '0';
-      iframe.allow = 'autoplay; encrypted-media';
-      iframe.src = 'https://www.youtube.com/embed/JFYedt-KnB0?autoplay=1&loop=1&playlist=JFYedt-KnB0&controls=0&enablejsapi=1&modestbranding=1&rel=0';
-      wrap.appendChild(iframe);
-    }
-    playing = true;
-    setAudioIcon(true);
-  }
-
-  function postYT(func){
-    const iframe = document.getElementById('ytAudio');
-    if(iframe && iframe.contentWindow){
-      iframe.contentWindow.postMessage(JSON.stringify({event:'command', func:func, args:[]}), '*');
-    }
+    const audio = document.getElementById('bgAudio');
+    if(!audio.src) return;
+    audio.play().then(function(){
+      playing = true;
+      setAudioIcon(true);
+    }).catch(function(){ /* browser blocked it, user can tap the audio button */ });
   }
 
   function setAudioIcon(isPlaying){
@@ -739,12 +723,10 @@
 
   let playing = false;
   function toggleAudio(){
-    if(!document.getElementById('ytAudio')){
-      startMusic();
-      return;
-    }
-    if(playing){ postYT('pauseVideo'); }
-    else { postYT('playVideo'); }
+    const audio = document.getElementById('bgAudio');
+    if(!audio.src) return;
+    if(playing){ audio.pause(); }
+    else { audio.play(); }
     playing = !playing;
     setAudioIcon(playing);
   }
