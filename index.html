@@ -695,7 +695,9 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
+  let attending = true;
   function setAttend(val){
+    attending = val;
     document.getElementById('btn-yes').classList.toggle('active', val);
     document.getElementById('btn-no').classList.toggle('active', !val);
   }
@@ -710,13 +712,44 @@
 
   document.getElementById('rsvpForm').addEventListener('submit', function(e){
     e.preventDefault();
+    const form = this;
     const name = document.getElementById('name').value;
-    document.getElementById('rsvpStatus').textContent = '¡Gracias, ' + name.split(' ')[0] + '! Tu respuesta fue registrada (demo).';
-    this.reset();
-    setAttend(true);
-    seats = 1;
-    document.getElementById('seatCount').textContent = seats;
-    document.getElementById('stepMinus').disabled = true;
+    const phone = document.getElementById('phone').value;
+    const statusEl = document.getElementById('rsvpStatus');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    submitBtn.disabled = true;
+    statusEl.textContent = 'Enviando...';
+
+    const formData = new FormData();
+    formData.append('Nombre', name);
+    formData.append('Teléfono', phone);
+    formData.append('Asistirá', attending ? 'Sí' : 'No');
+    formData.append('Número de personas', seats);
+    formData.append('_subject', 'Nueva confirmación de asistencia - XV Años Isabella');
+    formData.append('_captcha', 'false');
+    formData.append('_template', 'table');
+
+    fetch('https://formsubmit.co/ajax/johanaprensa33@gmail.com', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: formData
+    })
+    .then(function(res){ return res.json(); })
+    .then(function(){
+      statusEl.textContent = '¡Gracias, ' + name.split(' ')[0] + '! Tu respuesta fue registrada.';
+      form.reset();
+      setAttend(true);
+      seats = 1;
+      document.getElementById('seatCount').textContent = seats;
+      document.getElementById('stepMinus').disabled = true;
+    })
+    .catch(function(){
+      statusEl.textContent = 'Hubo un error al enviar. Por favor intenta de nuevo.';
+    })
+    .finally(function(){
+      submitBtn.disabled = false;
+    });
   });
 
   function toggleCalMenu(){
