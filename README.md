@@ -6,7 +6,7 @@
 <title>Isabella López Flechas · XV Años</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,600;1,700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600;1,700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --accent:#4a90e2;
@@ -21,54 +21,72 @@
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
-    font-family:'Poppins', sans-serif;
+    font-family:'Playfair Display', serif;
     color:var(--text);
-    background:linear-gradient(180deg,#f6d9e6 0%, #e9d9f2 45%, #f3d3e3 100%);
+    background:linear-gradient(180deg,#eef2f9 0%, #eef2f9 100%);
     overflow-x:hidden;
   }
-  h1,h2,h3,.serif{font-family:'Playfair Display', serif;}
+  .ui{ font-family:'Poppins', sans-serif; }
   img{max-width:100%; display:block;}
-  .wrap{ max-width:900px; margin:0 auto; padding:0 20px;}
+  .wrap{ max-width:640px; margin:0 auto; padding:0 20px;}
   .section-pad{ padding-top:56px;}
+  svg.ic{ width:1em; height:1em; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; vertical-align:-0.15em;}
+
+  /* ===== FLOATING AUDIO BUTTON ===== */
+  .audio-btn{
+    position:fixed; top:20px; right:16px; z-index:60;
+    width:48px; height:48px; border-radius:50%; border:1px solid rgba(255,255,255,.3);
+    background:rgba(255,255,255,.2); backdrop-filter:blur(8px);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--accent); cursor:pointer;
+    box-shadow:0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1);
+    font-size:1.2rem;
+  }
 
   /* ===== WELCOME MODAL ===== */
   .welcome-overlay{
     position:fixed; inset:0; z-index:200;
     display:flex; align-items:center; justify-content:center; padding:16px;
-    background: rgba(20,20,30,.55);
-    backdrop-filter: blur(6px);
     transition: opacity .5s ease, visibility .5s ease;
   }
   .welcome-overlay.hidden{ opacity:0; visibility:hidden; pointer-events:none;}
+  .welcome-bg{
+    position:absolute; inset:0;
+    background-image:url('https://d9ik8zwqn6h1v.cloudfront.net/invitations/6a77b914c34ff13032363a37/images/1786231244763-nenu80fctzg_full.webp');
+    background-size:cover; background-position:54% 20%;
+    filter:blur(6px) brightness(.75); transform:scale(1.1);
+  }
+  .welcome-tint{ position:absolute; inset:0; background:rgba(20,28,58,.55);}
   .welcome-glow{
     position:absolute; inset:0; pointer-events:none;
-    background: radial-gradient(circle at 50% 40%, rgba(74,144,226,.28) 0%, rgba(135,184,235,.10) 45%, transparent 72%);
+    background: radial-gradient(circle at 50% 55%, rgba(74,144,226,.25) 0%, rgba(135,184,235,.08) 45%, transparent 72%);
   }
   .welcome-card{
     position:relative;
-    max-width:640px; width:100%;
-    background: linear-gradient(180deg,#f3f6fb 0%, #eef2f9 100%);
+    max-width:420px; width:100%;
+    background: linear-gradient(180deg,#fafbfd 0%, #f0f3f9 100%);
     border-radius:28px;
-    padding:44px 32px 36px;
+    padding:44px 30px 34px;
     text-align:center;
     box-shadow: 0 24px 80px -16px rgba(0,0,0,.35), 0 0 60px rgba(74,144,226,.15);
     border:1px solid rgba(74,144,226,.18);
   }
   .welcome-icon{
-    width:92px; height:92px; margin:0 auto 22px;
+    width:88px; height:88px; margin:0 auto 22px;
     border-radius:50%;
     background: rgba(58,115,184,.09);
     box-shadow: 0 0 0 1px rgba(58,115,184,.18), 0 0 32px rgba(58,115,184,.16);
     display:flex; align-items:center; justify-content:center;
-    font-size:2.4rem;
+    color:var(--accent-dark);
   }
+  .welcome-icon svg{ width:38px; height:38px; }
   .welcome-card h2{
-    font-size:1.15rem; font-weight:700; color:#1c1917; line-height:1.4; margin-bottom:10px;
+    font-size:1.35rem; font-weight:700; color:#1c1917; line-height:1.35; margin-bottom:14px;
   }
   .welcome-card h3{
-    font-size:clamp(1.9rem, 6vw, 2.8rem); font-weight:700; color:var(--accent-dark); line-height:1.15; margin-bottom:16px;
+    font-size:clamp(1.8rem, 8vw, 2.5rem); font-weight:700; color:var(--accent); line-height:1.15; margin-bottom:16px;
   }
-  .welcome-card p.tagline{ color:#4b5563; font-size:1rem; margin-bottom:28px;}
+  .welcome-card p.tagline{ font-family:'Poppins',sans-serif; color:#57534e; font-size:1rem; margin-bottom:26px; font-weight:400;}
   .btn-enter{
     display:inline-flex; align-items:center; justify-content:center; gap:10px;
     width:100%; padding:15px 20px; border-radius:100px; border:none; cursor:pointer;
@@ -76,19 +94,21 @@
     color:#fff; font-family:'Poppins'; font-weight:600; font-size:1rem;
     box-shadow:var(--shadow-btn);
   }
+  .btn-enter svg{ width:18px; height:18px;}
 
   /* ===== HERO ===== */
   .hero{
     position:relative;
     height:100svh;
     min-height:560px;
-    background:
-      linear-gradient(rgba(0,0,0,.36), rgba(0,0,0,.36)),
-      radial-gradient(120% 90% at 20% 10%, #6f7fb0 0%, #384164 55%, #1d2338 100%);
-    display:flex; align-items:center; justify-content:center;
-    color:#fff; text-align:center; padding:40px;
     overflow:hidden;
   }
+  .hero-img{
+    position:absolute; inset:0; width:100%; height:100%;
+    background-image:url('https://d9ik8zwqn6h1v.cloudfront.net/invitations/6a77b914c34ff13032363a37/images/1786231244763-nenu80fctzg_full.webp');
+    background-size:cover; background-position:54% 7%;
+  }
+  .hero-tint{ position:absolute; inset:0; background:rgba(0,0,0,.32);}
   .hero-frame{
     position:absolute; inset:16px;
     border:1px solid rgba(255,255,255,.8);
@@ -100,41 +120,43 @@
   .c-tr{ top:0; right:0; border-top-width:2px; border-right-width:2px;}
   .c-bl{ bottom:0; left:0; border-bottom-width:2px; border-left-width:2px;}
   .c-br{ bottom:0; right:0; border-bottom-width:2px; border-right-width:2px;}
-  .hero-inner{ position:relative; z-index:2; max-width:640px;}
-  .hero-icon{ font-size:2.2rem; margin-bottom:14px; opacity:.95;}
+  .hero-inner{ position:relative; z-index:2; height:100%; display:flex; align-items:center; justify-content:center; text-align:center; padding:0 40px;}
+  .hero-content{ max-width:640px;}
+  .hero-icon{ font-size:2.2rem; margin-bottom:14px;}
   .hero h1{
-    font-size:clamp(2.2rem, 6.5vw, 4rem);
+    color:#fff;
+    font-size:clamp(2.2rem, 8vw, 3.6rem);
     font-weight:700; line-height:1.15;
-    text-shadow:0 1px 2px rgba(0,0,0,.4), 0 2px 6px rgba(0,0,0,.3);
+    text-shadow:0 1px 2px rgba(0,0,0,.4), 0 2px 6px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.25);
   }
 
   /* ===== COUNTDOWN ===== */
   .countdown-band{
     width:100%;
     background:linear-gradient(135deg, rgba(74,144,226,.10), rgba(74,144,226,.16));
-    padding:32px 20px;
+    padding:24px 20px;
     text-align:center;
   }
   .countdown-band h3{
-    font-family:'Poppins',sans-serif; font-weight:500; font-size:1.4rem; margin-bottom:20px; color:#111;
+    font-weight:500; font-size:1.5rem; margin-bottom:18px; color:#111;
   }
-  .countdown-grid{ display:flex; justify-content:center; gap:16px; flex-wrap:wrap; max-width:640px; margin:0 auto;}
+  .countdown-grid{ display:flex; justify-content:center; gap:14px; flex-wrap:wrap; max-width:640px; margin:0 auto;}
   .cd-unit{ display:flex; flex-direction:column; align-items:center;}
   .cd-pill{
     background:var(--accent);
     color:#fff; border-radius:16px;
-    padding:12px 20px; min-width:74px; text-align:center;
+    padding:10px 18px; min-width:66px; text-align:center;
     box-shadow:0 4px 10px rgba(74,144,226,.35);
   }
-  .cd-pill .n{ font-size:1.9rem; font-weight:700; font-variant-numeric: tabular-nums;}
-  .cd-unit .lbl{ margin-top:8px; font-size:.8rem; color:#333;}
+  .cd-pill .n{ font-size:1.8rem; font-weight:700; font-variant-numeric: tabular-nums;}
+  .cd-unit .lbl{ margin-top:8px; font-size:.82rem; color:#333; font-family:'Poppins',sans-serif;}
 
   /* ===== CARD (reusable) ===== */
   .card{
     position:relative;
     background:var(--surface);
     border-radius:20px;
-    padding:44px 30px 34px;
+    padding:44px 26px 30px;
     box-shadow:var(--shadow-card);
     margin-top:70px;
   }
@@ -143,26 +165,27 @@
     width:52px; height:52px; border-radius:50%;
     background:linear-gradient(135deg, var(--accent), var(--accent-dark));
     display:flex; align-items:center; justify-content:center;
-    font-size:1.4rem; box-shadow:0 8px 18px rgba(74,144,226,.4); color:#fff;
+    box-shadow:0 8px 18px rgba(74,144,226,.4); color:#fff;
   }
+  .badge svg{ width:24px; height:24px;}
   .card h3.title{
-    font-size:1.4rem; font-weight:700; color:#1c1917; margin-bottom:16px;
+    font-style:italic;
+    font-size:1.45rem; font-weight:700; color:#1c1917; margin-bottom:18px;
     display:flex; align-items:center; gap:8px;
   }
-  .card h3.title .ic{ color:var(--accent); font-size:1.1rem;}
+  .card h3.title .ic{ color:var(--accent); display:flex;}
+  .card h3.title .ic svg{ width:20px; height:20px;}
 
   /* content / message */
-  .message-card p{ color:#374151; line-height:1.9; font-size:1rem;}
-  .message-card p + p{ margin-top:16px;}
-  .message-card{ text-align:center;}
+  .message-card p{ color:#374151; line-height:1.85; font-size:1.05rem;}
+  .message-card p + p{ margin-top:18px;}
 
   /* gallery */
-  .gallery-stack{ display:flex; flex-direction:column; align-items:center; padding-top:6px;}
+  .gallery-stack{ display:flex; flex-direction:column; align-items:center; padding-top:4px;}
   .polaroid{
-    width:70%; max-width:280px; background:#fff; padding:10px 10px 34px;
-    border-radius:6px; box-shadow:0 2px 4px rgba(0,0,0,.08), 0 12px 28px -8px rgba(0,0,0,.3);
+    width:72%; max-width:280px; background:#fff; padding:8px 8px 34px;
+    border-radius:4px; box-shadow:0 2px 4px rgba(0,0,0,.08), 0 12px 28px -8px rgba(0,0,0,.3);
     margin-top:-14%;
-    font-family:'Playfair Display', serif; font-style:italic; text-align:center; color:#78716c; font-size:.85rem;
   }
   .polaroid:first-child{ margin-top:0; align-self:flex-start; transform:rotate(-3deg);}
   .polaroid:nth-child(2){ align-self:flex-end; transform:rotate(2.5deg);}
@@ -170,65 +193,109 @@
   .polaroid:nth-child(4){ align-self:flex-end; transform:rotate(3.5deg);}
   .polaroid:nth-child(5){ align-self:flex-start; transform:rotate(-2.5deg);}
   .polaroid .ph{
-    aspect-ratio:4/5; border-radius:3px;
-    background:linear-gradient(150deg,#f0e4ee,#dbe6f7);
-    display:flex; align-items:center; justify-content:center;
-    color:#9ca3af; font-family:'Poppins',sans-serif; font-style:normal; font-size:.72rem;
+    aspect-ratio:4/5; border-radius:3px; overflow:hidden;
+    background:#eee;
   }
+  .polaroid .ph img{ width:100%; height:100%; object-fit:cover;}
 
   /* date/location rows */
-  .info-row{ display:flex; gap:14px; align-items:flex-start; margin-bottom:16px;}
+  .info-row{ display:flex; gap:14px; align-items:flex-start; margin-bottom:18px;}
   .info-row .dot-ic{
     width:34px; height:34px; border-radius:50%; background:rgba(74,144,226,.15);
-    display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:1rem;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--accent-dark);
   }
-  .info-row .label{ font-size:.75rem; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); font-weight:600; margin-bottom:2px;}
-  .info-row .value{ font-size:1.05rem; font-weight:500; color:#1c1917; text-transform:capitalize;}
-  .info-row .sub{ font-size:.82rem; color:var(--muted); margin-top:2px;}
+  .info-row .dot-ic svg{ width:17px; height:17px;}
+  .info-row .label{ font-family:'Poppins',sans-serif; font-size:.75rem; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); font-weight:600; margin-bottom:4px;}
+  .info-row .value{ font-size:1.15rem; font-weight:500; color:#1c1917;}
+  .info-row .sub{ font-family:'Poppins',sans-serif; font-size:.82rem; color:var(--muted); margin-top:4px; line-height:1.5;}
 
   .btn{
-    display:flex; align-items:center; justify-content:center; gap:8px;
-    width:100%; margin-top:14px; padding:14px 20px; border-radius:100px;
+    display:flex; align-items:center; justify-content:center; gap:9px;
+    width:100%; margin-top:6px; padding:14px 20px; border-radius:100px;
     background:linear-gradient(135deg, var(--accent), var(--accent-dark));
     color:#fff; text-decoration:none; border:none; cursor:pointer;
-    font-family:'Poppins'; font-weight:600; font-size:.95rem;
+    font-family:'Poppins'; font-weight:600; font-size:.98rem;
     box-shadow:var(--shadow-btn);
   }
+  .btn svg{ width:18px; height:18px;}
+  .cal-wrap{ position:relative; }
+  .cal-menu{
+    position:absolute; left:0; right:0; top:calc(100% + 8px);
+    background:#fff; border-radius:16px; box-shadow:0 12px 28px -6px rgba(0,0,0,.25);
+    overflow:hidden; opacity:0; pointer-events:none; transform:translateY(-6px);
+    transition:.18s ease; z-index:5;
+  }
+  .cal-menu.open{ opacity:1; pointer-events:auto; transform:translateY(0);}
+  .cal-menu a{
+    display:block; padding:13px 18px; font-family:'Poppins'; font-size:.9rem; font-weight:500;
+    color:#374151; text-decoration:none; border-bottom:1px solid #f1f1f0;
+  }
+  .cal-menu a:last-child{ border-bottom:none;}
+  .cal-menu a:hover{ background:#f7f9fc;}
 
   /* dresscode */
   .dresscode-photo{
-    width:190px; margin:20px auto 0; background:#fff; padding:8px 8px 10px;
-    border-radius:4px; box-shadow:0 10px 20px rgba(0,0,0,.15); transform:rotate(-2deg);
+    width:230px; margin:22px auto 0; background:#fff; padding:0;
+    border-radius:10px; overflow:hidden; box-shadow:0 14px 30px -8px rgba(0,0,0,.25);
   }
-  .dresscode-photo .ph{ aspect-ratio:3/4; border-radius:2px; background:linear-gradient(150deg,#dbe6f7,#f0e4ee); display:flex; align-items:center; justify-content:center; color:#9ca3af; font-size:.7rem;}
-  .swatches{ display:flex; gap:10px; justify-content:center; margin-top:20px;}
-  .swatch{ width:34px; height:34px; border-radius:50%; box-shadow:0 0 0 1px rgba(0,0,0,.08), 0 3px 8px rgba(0,0,0,.12);}
+  .dresscode-photo img{ width:100%; display:block;}
 
   /* RSVP */
-  form{ display:flex; flex-direction:column; gap:16px; margin-top:6px;}
-  label{ font-size:.86rem; font-weight:500; color:#374151; margin-bottom:6px; display:block;}
-  input, select{
-    width:100%; padding:12px 14px; border-radius:12px; border:2px solid #e7e5e4;
+  form{ display:flex; flex-direction:column; gap:20px; margin-top:4px;}
+  label{ font-family:'Playfair Display', serif; font-size:.98rem; font-weight:400; color:#374151; margin-bottom:8px; display:block;}
+  input{
+    width:100%; padding:13px 16px; border-radius:12px; border:1.5px solid #e7e5e4;
     background:#fafaf9; font-family:'Poppins'; font-size:.95rem; color:#1c1917;
   }
-  input:focus, select:focus{ outline:none; border-color:var(--accent);}
+  input::placeholder{ color:#b9b6b3;}
+  input:focus{ outline:none; border-color:var(--accent);}
   .attend-toggle{ display:grid; grid-template-columns:1fr 1fr; gap:12px;}
   .attend-btn{
-    display:flex; flex-direction:column; align-items:center; gap:6px;
+    display:flex; align-items:center; justify-content:center; gap:10px;
     padding:14px 10px; border-radius:16px; border:2px solid #e7e5e4; background:#fff;
-    cursor:pointer; font-family:'Poppins'; font-weight:600; font-size:.85rem; color:#57534e;
+    cursor:pointer; font-family:'Playfair Display'; font-weight:700; font-size:1rem; color:#57534e;
     transition:.15s;
   }
-  .attend-btn .circle{ width:30px; height:30px; border-radius:50%; background:#f3f4f6; display:flex; align-items:center; justify-content:center; font-size:.9rem;}
-  .attend-btn.active{ border-color:var(--accent); background:rgba(74,144,226,.08); color:var(--accent);}
+  .attend-btn .circle{ width:28px; height:28px; border-radius:50%; background:#f3f4f6; display:flex; align-items:center; justify-content:center; color:#a8a29e;}
+  .attend-btn .circle svg{ width:14px; height:14px;}
+  .attend-btn.active{ border-color:var(--accent); color:var(--accent);}
   .attend-btn.active .circle{ background:linear-gradient(135deg,var(--accent),var(--accent-dark)); color:#fff;}
-  .seat-stepper{ display:flex; align-items:center; gap:14px;}
+  .seat-stepper{ display:flex; align-items:center; gap:16px;}
   .step-btn{
-    width:44px; height:44px; border-radius:12px; border:2px solid #e7e5e4; background:#fff;
-    font-size:1.2rem; font-weight:600; color:#374151; cursor:pointer;
+    width:44px; height:44px; border-radius:12px; border:1.5px solid #e7e5e4; background:#fff;
+    font-size:1.3rem; font-weight:600; color:#78716c; cursor:pointer; font-family:'Poppins';
   }
-  .step-val{ min-width:2.5rem; text-align:center; font-size:1.1rem; font-weight:600;}
-  .rsvp-status{ text-align:center; font-size:.88rem; color:var(--accent-dark); min-height:1.2em; font-weight:500;}
+  .step-btn:disabled{ opacity:.4; cursor:not-allowed;}
+  .step-val{ min-width:2rem; text-align:center; font-size:1.15rem; font-weight:700; font-family:'Playfair Display';}
+  .rsvp-status{ text-align:center; font-size:.92rem; color:var(--accent-dark); min-height:1.2em; font-weight:500; font-family:'Poppins';}
+
+  /* wallet */
+  .wallet-card{ text-align:center;}
+  .wallet-card p.wsub{ font-family:'Poppins',sans-serif; color:#78716c; font-size:.92rem; margin-top:6px; margin-bottom:26px;}
+  .wallet-stack{ position:relative; width:230px; height:190px; margin:0 auto 26px;}
+  .wallet-stack .back{
+    position:absolute; inset:0; border-radius:16px; box-shadow:0 10px 24px -8px rgba(0,0,0,.25);
+  }
+  .wallet-stack .back.purple{ background:linear-gradient(135deg,#6c63ff,#8b7dff); transform:translateX(-16px) translateY(10px) rotate(-6deg); z-index:1;}
+  .wallet-stack .back.teal{ background:linear-gradient(135deg,#2fb8a0,#57cdb6); transform:translateX(16px) translateY(10px) rotate(6deg); z-index:2;}
+  .wallet-front{
+    position:absolute; inset:0; z-index:3; background:#fff; border-radius:16px; padding:16px 18px;
+    box-shadow:0 14px 30px -8px rgba(0,0,0,.3); border:1px solid rgba(215,120,107,.15);
+    display:flex; flex-direction:column; justify-content:space-between; text-align:left;
+  }
+  .wallet-front .wtop{ display:flex; justify-content:space-between; align-items:center;}
+  .wallet-front .wtop span{ font-family:'Poppins'; font-size:.62rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#1c1917; opacity:.7;}
+  .wallet-front .wdot{ width:10px; height:10px; border-radius:50%; background:#d7786b;}
+  .wallet-front .wname{ font-family:'Playfair Display'; font-weight:700; font-size:1rem; color:#1c1917;}
+  .wallet-front .wdate{ font-family:'Poppins'; font-size:.72rem; color:#78716c; margin-top:2px;}
+  .wallet-front .wbar{ height:26px; background-image:repeating-linear-gradient(90deg, #d7786b 0px, #d7786b 2px, transparent 2px, transparent 4px);}
+  .btn-black{
+    display:inline-flex; align-items:center; gap:8px; justify-content:center;
+    background:#000; color:#fff; border:none; border-radius:100px; padding:12px 24px;
+    font-family:'Poppins'; font-weight:600; font-size:.9rem; cursor:pointer;
+    box-shadow:0 8px 20px -6px rgba(0,0,0,.4);
+  }
+  .btn-black svg{ width:16px; height:16px;}
 
   /* footer */
   footer{ text-align:center; padding:70px 20px 40px;}
@@ -243,27 +310,43 @@
 </head>
 <body>
 
+<!-- FLOATING AUDIO BUTTON -->
+<button class="audio-btn" id="audioBtn" aria-label="Reproducir música" onclick="toggleAudio()">
+  <svg class="ic" viewBox="0 0 24 24" id="audioIcon"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>
+</button>
+
 <!-- WELCOME MODAL -->
 <div class="welcome-overlay" id="welcomeOverlay">
+  <div class="welcome-bg"></div>
+  <div class="welcome-tint"></div>
   <div class="welcome-glow"></div>
   <div class="welcome-card">
-    <div class="welcome-icon">🎉</div>
+    <div class="welcome-icon">
+      <svg viewBox="0 0 24 24" fill="#206cc6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"/><path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17"/><path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7"/><path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z"/></svg>
+    </div>
     <h2>Su mamá, Johana Flechas Palomino tiene el gusto de invitarte a celebrar los 15 de su princesa</h2>
     <h3>Isabella López Flechas</h3>
-    <p class="tagline">Te esperamos con mucha alegría</p>
-    <button class="btn-enter" onclick="enterInvitation()">✨ &nbsp;Ingresar a la invitación</button>
+    <p class="tagline">Te esperamos con mucha alegria</p>
+    <button class="btn-enter" onclick="enterInvitation()">
+      <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></svg>
+      Ingresar a la invitación
+    </button>
   </div>
 </div>
 
 <!-- HERO -->
 <div class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-tint"></div>
   <div class="hero-frame"></div>
   <div class="hero-corners">
     <span class="c-tl"></span><span class="c-tr"></span><span class="c-bl"></span><span class="c-br"></span>
   </div>
   <div class="hero-inner">
-    <div class="hero-icon">💐</div>
-    <h1>Isabella López Flechas</h1>
+    <div class="hero-content">
+      <div class="hero-icon">💐</div>
+      <h1>Isabella<br>López Flechas</h1>
+    </div>
   </div>
 </div>
 
@@ -282,73 +365,104 @@
 
   <!-- WELCOME MESSAGE -->
   <div class="card message-card">
-    <div class="badge" style="left:50%; transform:translateX(-50%);">💌</div>
     <p>Hoy comienza una nueva etapa en mi vida, llena de sueños, ilusiones y nuevos caminos por recorrer. Miro hacia atrás con un corazón agradecido por cada abrazo, cada enseñanza y cada persona que ha hecho parte de mi historia.</p>
     <p>Cada sonrisa, cada consejo y cada momento compartido han dejado huellas que llevaré siempre conmigo. Gracias por acompañarme a crecer y por hacer de estos primeros quince años un tiempo tan especial.</p>
   </div>
 
   <!-- GALLERY -->
   <div class="card">
-    <div class="badge">🖼️</div>
-    <h3 class="title">Recuerdos Inolvidables</h3>
+    <div class="badge">
+      <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 11-1.296-1.296a2.4 2.4 0 0 0-3.408 0L11 16"/><path d="M4 8a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2"/><circle cx="13" cy="7" r="1" fill="currentColor"/><rect x="8" y="2" width="14" height="14" rx="2"/></svg>
+    </div>
+    <h3 class="title">
+      <span class="ic"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 11-1.296-1.296a2.4 2.4 0 0 0-3.408 0L11 16"/><path d="M4 8a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2"/><circle cx="13" cy="7" r="1" fill="currentColor"/><rect x="8" y="2" width="14" height="14" rx="2"/></svg></span>
+      Recuerdos Inolvidables
+    </h3>
     <div class="gallery-stack">
-      <div class="polaroid"><div class="ph">Añade tu foto</div></div>
-      <div class="polaroid"><div class="ph">Añade tu foto</div></div>
-      <div class="polaroid"><div class="ph">Añade tu foto</div></div>
-      <div class="polaroid"><div class="ph">Añade tu foto</div></div>
-      <div class="polaroid"><div class="ph">Añade tu foto</div></div>
+      <div class="polaroid"><div class="ph"><img src="https://d9ik8zwqn6h1v.cloudfront.net/invitations/6a77b914c34ff13032363a37/images/1786331423102-j8df65swo5_full.webp" alt="Isabella con la luna"></div></div>
+      <div class="polaroid"><div class="ph"><img src="https://d9ik8zwqn6h1v.cloudfront.net/invitations/6a77b914c34ff13032363a37/images/1786231464469-qey4e9fsfqa_full.webp" alt="Isabella con sus zapatos"></div></div>
+      <div class="polaroid"><div class="ph"><img src="https://d9ik8zwqn6h1v.cloudfront.net/invitations/6a77b914c34ff13032363a37/images/1786231454828-uevxkzz25v_full.webp" alt="Isabella entre palmeras"></div></div>
+      <div class="polaroid"><div class="ph"><img src="https://d9ik8zwqn6h1v.cloudfront.net/invitations/6a77b914c34ff13032363a37/images/1786231467795-tpocxo5iq59_full.webp" alt="Retrato de Isabella"></div></div>
+      <div class="polaroid"><div class="ph"><img src="https://d9ik8zwqn6h1v.cloudfront.net/invitations/6a77b914c34ff13032363a37/images/1786231461391-gmf8jydpybe_full.webp" alt="Isabella bajo la pérgola"></div></div>
     </div>
   </div>
 
   <!-- DATE -->
   <div class="card">
-    <div class="badge">📅</div>
-    <h3 class="title">Fecha y Hora</h3>
+    <div class="badge">
+      <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+    </div>
+    <h3 class="title">
+      <span class="ic"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg></span>
+      Fecha y Hora
+    </h3>
     <div class="info-row">
       <div class="dot-ic">📅</div>
-      <div><div class="value">sábado, 12 de septiembre de 2026</div></div>
+      <div><div class="value">Sábado, 12 de septiembre de 2026</div></div>
     </div>
     <div class="info-row">
-      <div class="dot-ic">🕕</div>
+      <div class="dot-ic"><svg class="ic" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg></div>
       <div><div class="value">18:00</div></div>
     </div>
-    <button class="btn" onclick="addToCalendar()">📅 &nbsp;Agregar al Calendario</button>
+    <div class="cal-wrap">
+      <button class="btn" onclick="toggleCalMenu()">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+        Agregar al Calendario
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="cal-menu" id="calMenu">
+        <a href="#" onclick="addToCalendar('google');return false;">Google Calendar</a>
+        <a href="#" onclick="addToCalendar('ics');return false;">Apple / Outlook (.ics)</a>
+      </div>
+    </div>
   </div>
 
   <!-- LOCATION -->
   <div class="card">
-    <div class="badge">📍</div>
-    <h3 class="title">Ubicación</h3>
+    <div class="badge">
+      <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+    </div>
+    <h3 class="title">
+      <span class="ic"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></span>
+      Ubicación
+    </h3>
     <div class="info-row">
       <div class="dot-ic">📍</div>
       <div>
         <div class="label">Lugar</div>
-        <div class="value" style="text-transform:none;">Conjunto Tabaku Central</div>
-        <div class="sub">Cra. 82a #6-37, Kennedy, Bogotá, D.C., Colombia</div>
+        <div class="value">Conjunto Tabaku Central</div>
+        <div class="sub">Cra. 82a # 6-37, Kennedy, Bogotá, D.C., Bogotá, Bogotá, D.C., Colombia</div>
       </div>
     </div>
-    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Conjunto+Tabaku+Central+Cra+82a+%236-37+Kennedy+Bogota" target="_blank" rel="noopener">🗺️ &nbsp;Ver mapa</a>
+    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Conjunto+Tabaku+Central+Cra+82a+%236-37+Kennedy+Bogota" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg>
+      Ver mapa
+    </a>
   </div>
 
   <!-- DRESS CODE -->
   <div class="card" style="text-align:center;">
-    <div class="badge" style="left:50%; transform:translateX(-50%);">👗</div>
-    <h3 class="title" style="justify-content:center;">Código de Vestimenta</h3>
-    <p style="color:#374151; font-size:.95rem;">Formal elegante — tonos azules, dorados o neutros para acompañar la celebración.</p>
-    <div class="dresscode-photo"><div class="ph">Añade tu foto</div></div>
-    <div class="swatches">
-      <div class="swatch" style="background:#2e3b6e;"></div>
-      <div class="swatch" style="background:#4a90e2;"></div>
-      <div class="swatch" style="background:#b8923f;"></div>
-      <div class="swatch" style="background:#e9edf7;"></div>
-      <div class="swatch" style="background:#1c2440;"></div>
+    <div class="badge" style="left:50%; transform:translateX(-50%);">
+      <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
+    </div>
+    <h3 class="title" style="justify-content:center;">
+      <span class="ic"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg></span>
+      Código de Vestimenta
+    </h3>
+    <div class="dresscode-photo">
+      <img src="https://d9ik8zwqn6h1v.cloudfront.net/invitations/6a77b914c34ff13032363a37/images/1786232194484-64obnu36dwv_thumb.webp" alt="Código de vestimenta - tonos de azul y plateado">
     </div>
   </div>
 
   <!-- RSVP -->
   <div class="card">
-    <div class="badge">✉️</div>
-    <h3 class="title">Confirmar Asistencia</h3>
+    <div class="badge">
+      <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="m16 19 2 2 4-4"/></svg>
+    </div>
+    <h3 class="title">
+      <span class="ic"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="m16 19 2 2 4-4"/></svg></span>
+      Confirmar Asistencia
+    </h3>
     <form id="rsvpForm">
       <div>
         <label for="name">Tu Nombre *</label>
@@ -361,21 +475,55 @@
       <div>
         <label>¿Asistirás? *</label>
         <div class="attend-toggle">
-          <div class="attend-btn active" id="btn-yes" onclick="setAttend(true)"><div class="circle">✓</div>Sí, asistiré</div>
-          <div class="attend-btn" id="btn-no" onclick="setAttend(false)"><div class="circle">✕</div>No podré asistir</div>
+          <div class="attend-btn active" id="btn-yes" onclick="setAttend(true)">
+            <div class="circle"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>Sí
+          </div>
+          <div class="attend-btn" id="btn-no" onclick="setAttend(false)">
+            <div class="circle"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></div>No
+          </div>
         </div>
       </div>
       <div>
         <label>¿Cuántas personas asistirán? *</label>
         <div class="seat-stepper">
-          <button type="button" class="step-btn" onclick="changeSeats(-1)" aria-label="Quitar una persona">−</button>
+          <button type="button" class="step-btn" id="stepMinus" onclick="changeSeats(-1)" aria-label="Quitar una persona">−</button>
           <span class="step-val" id="seatCount">1</span>
           <button type="button" class="step-btn" onclick="changeSeats(1)" aria-label="Agregar una persona">+</button>
         </div>
       </div>
-      <button type="submit" class="btn">✈️ &nbsp;Confirmar Asistencia</button>
+      <button type="submit" class="btn">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
+        Confirmar Asistencia
+      </button>
       <div class="rsvp-status" id="rsvpStatus"></div>
     </form>
+  </div>
+
+  <!-- WALLET / GUEST ACTIONS -->
+  <div class="card wallet-card">
+    <div class="badge" style="left:50%; transform:translateX(-50%);">
+      <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>
+    </div>
+    <h3 class="title" style="justify-content:center;">Guarda tu invitación</h3>
+    <p class="wsub">Llévala en tu bolsillo — aparece sola el día del evento.</p>
+
+    <div class="wallet-stack">
+      <div class="back purple"></div>
+      <div class="back teal"></div>
+      <div class="wallet-front">
+        <div class="wtop"><span>Google Wallet</span><span class="wdot"></span></div>
+        <div>
+          <div class="wname">Isabella López Flechas</div>
+          <div class="wdate">12 sept</div>
+        </div>
+        <div class="wbar"></div>
+      </div>
+    </div>
+
+    <button class="btn-black" onclick="alert('Funcionalidad de demostración: aquí se descargaría el pase de Google Wallet.')">
+      <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+      Añadir a Google Wallet
+    </button>
   </div>
 
 </div>
@@ -385,6 +533,8 @@
   <p>Esperamos celebrar contigo</p>
   <div class="fine">Invitación digital hecha a la medida para Isabella</div>
 </footer>
+
+<audio id="bgAudio" loop preload="none"></audio>
 
 <script>
   function enterInvitation(){
@@ -417,7 +567,9 @@
   function changeSeats(delta){
     seats = Math.max(1, Math.min(10, seats + delta));
     document.getElementById('seatCount').textContent = seats;
+    document.getElementById('stepMinus').disabled = seats <= 1;
   }
+  changeSeats(0);
 
   document.getElementById('rsvpForm').addEventListener('submit', function(e){
     e.preventDefault();
@@ -427,15 +579,47 @@
     setAttend(true);
     seats = 1;
     document.getElementById('seatCount').textContent = seats;
+    document.getElementById('stepMinus').disabled = true;
   });
 
-  function addToCalendar(){
+  function toggleCalMenu(){
+    document.getElementById('calMenu').classList.toggle('open');
+  }
+  document.addEventListener('click', function(e){
+    const wrap = document.querySelector('.cal-wrap');
+    if(wrap && !wrap.contains(e.target)) document.getElementById('calMenu').classList.remove('open');
+  });
+
+  function addToCalendar(kind){
     const start = "20260912T230000Z";
     const end   = "20260913T030000Z";
     const text = encodeURIComponent("XV Años de Isabella López Flechas");
     const details = encodeURIComponent("Celebración de los XV años de Isabella");
     const location = encodeURIComponent("Conjunto Tabaku Central, Cra. 82a #6-37, Kennedy, Bogotá, Colombia");
-    window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${start}/${end}&details=${details}&location=${location}`, '_blank');
+    if(kind === 'google'){
+      window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${start}/${end}&details=${details}&location=${location}`, '_blank');
+    } else {
+      const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:XV Años de Isabella López Flechas\nDTSTART:${start}\nDTEND:${end}\nLOCATION:Conjunto Tabaku Central, Cra. 82a #6-37, Kennedy, Bogotá, Colombia\nDESCRIPTION:Celebración de los XV años de Isabella\nEND:VEVENT\nEND:VCALENDAR`;
+      const blob = new Blob([ics], {type:'text/calendar'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'XV-Isabella.ics';
+      a.click();
+    }
+    document.getElementById('calMenu').classList.remove('open');
+  }
+
+  let playing = false;
+  function toggleAudio(){
+    const audio = document.getElementById('bgAudio');
+    const icon = document.getElementById('audioIcon');
+    if(!audio.src) return; // no track configured
+    if(playing){ audio.pause(); }
+    else { audio.play(); }
+    playing = !playing;
+    icon.innerHTML = playing
+      ? '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>'
+      : '<path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/>';
   }
 </script>
 
