@@ -24,11 +24,58 @@
     font-family:'Poppins', sans-serif;
     color:var(--text);
     background:linear-gradient(180deg,#f6d9e6 0%, #e9d9f2 45%, #f3d3e3 100%);
+    overflow-x:hidden;
   }
   h1,h2,h3,.serif{font-family:'Playfair Display', serif;}
   img{max-width:100%; display:block;}
   .wrap{ max-width:900px; margin:0 auto; padding:0 20px;}
   .section-pad{ padding-top:56px;}
+
+  /* ===== WELCOME MODAL ===== */
+  .welcome-overlay{
+    position:fixed; inset:0; z-index:200;
+    display:flex; align-items:center; justify-content:center; padding:16px;
+    background: rgba(20,20,30,.55);
+    backdrop-filter: blur(6px);
+    transition: opacity .5s ease, visibility .5s ease;
+  }
+  .welcome-overlay.hidden{ opacity:0; visibility:hidden; pointer-events:none;}
+  .welcome-glow{
+    position:absolute; inset:0; pointer-events:none;
+    background: radial-gradient(circle at 50% 40%, rgba(74,144,226,.28) 0%, rgba(135,184,235,.10) 45%, transparent 72%);
+  }
+  .welcome-card{
+    position:relative;
+    max-width:640px; width:100%;
+    background: linear-gradient(180deg,#f3f6fb 0%, #eef2f9 100%);
+    border-radius:28px;
+    padding:44px 32px 36px;
+    text-align:center;
+    box-shadow: 0 24px 80px -16px rgba(0,0,0,.35), 0 0 60px rgba(74,144,226,.15);
+    border:1px solid rgba(74,144,226,.18);
+  }
+  .welcome-icon{
+    width:92px; height:92px; margin:0 auto 22px;
+    border-radius:50%;
+    background: rgba(58,115,184,.09);
+    box-shadow: 0 0 0 1px rgba(58,115,184,.18), 0 0 32px rgba(58,115,184,.16);
+    display:flex; align-items:center; justify-content:center;
+    font-size:2.4rem;
+  }
+  .welcome-card h2{
+    font-size:1.15rem; font-weight:700; color:#1c1917; line-height:1.4; margin-bottom:10px;
+  }
+  .welcome-card h3{
+    font-size:clamp(1.9rem, 6vw, 2.8rem); font-weight:700; color:var(--accent-dark); line-height:1.15; margin-bottom:16px;
+  }
+  .welcome-card p.tagline{ color:#4b5563; font-size:1rem; margin-bottom:28px;}
+  .btn-enter{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    width:100%; padding:15px 20px; border-radius:100px; border:none; cursor:pointer;
+    background:linear-gradient(135deg, var(--accent), var(--accent-dark));
+    color:#fff; font-family:'Poppins'; font-weight:600; font-size:1rem;
+    box-shadow:var(--shadow-btn);
+  }
 
   /* ===== HERO ===== */
   .hero{
@@ -36,7 +83,7 @@
     height:100svh;
     min-height:560px;
     background:
-      linear-gradient(rgba(0,0,0,.32), rgba(0,0,0,.32)),
+      linear-gradient(rgba(0,0,0,.36), rgba(0,0,0,.36)),
       radial-gradient(120% 90% at 20% 10%, #6f7fb0 0%, #384164 55%, #1d2338 100%);
     display:flex; align-items:center; justify-content:center;
     color:#fff; text-align:center; padding:40px;
@@ -47,8 +94,6 @@
     border:1px solid rgba(255,255,255,.8);
     pointer-events:none;
   }
-  .hero-frame::before, .hero-frame::after,
-  .hero-corners span{ content:""; }
   .hero-corners{ position:absolute; inset:26px; pointer-events:none;}
   .hero-corners span{ position:absolute; width:22px; height:22px; border-color:rgba(255,255,255,.9); border-style:solid; border-width:0;}
   .c-tl{ top:0; left:0; border-top-width:2px; border-left-width:2px;}
@@ -98,7 +143,7 @@
     width:52px; height:52px; border-radius:50%;
     background:linear-gradient(135deg, var(--accent), var(--accent-dark));
     display:flex; align-items:center; justify-content:center;
-    font-size:1.4rem; box-shadow:0 8px 18px rgba(74,144,226,.4);
+    font-size:1.4rem; box-shadow:0 8px 18px rgba(74,144,226,.4); color:#fff;
   }
   .card h3.title{
     font-size:1.4rem; font-weight:700; color:#1c1917; margin-bottom:16px;
@@ -109,6 +154,7 @@
   /* content / message */
   .message-card p{ color:#374151; line-height:1.9; font-size:1rem;}
   .message-card p + p{ margin-top:16px;}
+  .message-card{ text-align:center;}
 
   /* gallery */
   .gallery-stack{ display:flex; flex-direction:column; align-items:center; padding-top:6px;}
@@ -121,7 +167,7 @@
   .polaroid:first-child{ margin-top:0; align-self:flex-start; transform:rotate(-3deg);}
   .polaroid:nth-child(2){ align-self:flex-end; transform:rotate(2.5deg);}
   .polaroid:nth-child(3){ align-self:flex-start; transform:rotate(-2deg);}
-  .polaroid:nth-child(4){ align-self:flex-end; transform:rotate(3deg);}
+  .polaroid:nth-child(4){ align-self:flex-end; transform:rotate(3.5deg);}
   .polaroid:nth-child(5){ align-self:flex-start; transform:rotate(-2.5deg);}
   .polaroid .ph{
     aspect-ratio:4/5; border-radius:3px;
@@ -137,7 +183,7 @@
     display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:1rem;
   }
   .info-row .label{ font-size:.75rem; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); font-weight:600; margin-bottom:2px;}
-  .info-row .value{ font-size:1.05rem; font-weight:500; color:#1c1917;}
+  .info-row .value{ font-size:1.05rem; font-weight:500; color:#1c1917; text-transform:capitalize;}
   .info-row .sub{ font-size:.82rem; color:var(--muted); margin-top:2px;}
 
   .btn{
@@ -151,7 +197,7 @@
 
   /* dresscode */
   .dresscode-photo{
-    width:170px; margin:20px auto 0; background:#fff; padding:8px 8px 6px;
+    width:190px; margin:20px auto 0; background:#fff; padding:8px 8px 10px;
     border-radius:4px; box-shadow:0 10px 20px rgba(0,0,0,.15); transform:rotate(-2deg);
   }
   .dresscode-photo .ph{ aspect-ratio:3/4; border-radius:2px; background:linear-gradient(150deg,#dbe6f7,#f0e4ee); display:flex; align-items:center; justify-content:center; color:#9ca3af; font-size:.7rem;}
@@ -176,6 +222,12 @@
   .attend-btn .circle{ width:30px; height:30px; border-radius:50%; background:#f3f4f6; display:flex; align-items:center; justify-content:center; font-size:.9rem;}
   .attend-btn.active{ border-color:var(--accent); background:rgba(74,144,226,.08); color:var(--accent);}
   .attend-btn.active .circle{ background:linear-gradient(135deg,var(--accent),var(--accent-dark)); color:#fff;}
+  .seat-stepper{ display:flex; align-items:center; gap:14px;}
+  .step-btn{
+    width:44px; height:44px; border-radius:12px; border:2px solid #e7e5e4; background:#fff;
+    font-size:1.2rem; font-weight:600; color:#374151; cursor:pointer;
+  }
+  .step-val{ min-width:2.5rem; text-align:center; font-size:1.1rem; font-weight:600;}
   .rsvp-status{ text-align:center; font-size:.88rem; color:var(--accent-dark); min-height:1.2em; font-weight:500;}
 
   /* footer */
@@ -190,6 +242,18 @@
 </style>
 </head>
 <body>
+
+<!-- WELCOME MODAL -->
+<div class="welcome-overlay" id="welcomeOverlay">
+  <div class="welcome-glow"></div>
+  <div class="welcome-card">
+    <div class="welcome-icon">🎉</div>
+    <h2>Su mamá, Johana Flechas Palomino tiene el gusto de invitarte a celebrar los 15 de su princesa</h2>
+    <h3>Isabella López Flechas</h3>
+    <p class="tagline">Te esperamos con mucha alegría</p>
+    <button class="btn-enter" onclick="enterInvitation()">✨ &nbsp;Ingresar a la invitación</button>
+  </div>
+</div>
 
 <!-- HERO -->
 <div class="hero">
@@ -218,7 +282,7 @@
 
   <!-- WELCOME MESSAGE -->
   <div class="card message-card">
-    <p>Su mamá, Johana Flechas Palomino, tiene el gusto de invitarte a celebrar los 15 años de su princesa. Te esperamos con mucha alegría.</p>
+    <div class="badge" style="left:50%; transform:translateX(-50%);">💌</div>
     <p>Hoy comienza una nueva etapa en mi vida, llena de sueños, ilusiones y nuevos caminos por recorrer. Miro hacia atrás con un corazón agradecido por cada abrazo, cada enseñanza y cada persona que ha hecho parte de mi historia.</p>
     <p>Cada sonrisa, cada consejo y cada momento compartido han dejado huellas que llevaré siempre conmigo. Gracias por acompañarme a crecer y por hacer de estos primeros quince años un tiempo tan especial.</p>
   </div>
@@ -242,11 +306,11 @@
     <h3 class="title">Fecha y Hora</h3>
     <div class="info-row">
       <div class="dot-ic">📅</div>
-      <div><div class="value">Sábado, 12 de septiembre de 2026</div></div>
+      <div><div class="value">sábado, 12 de septiembre de 2026</div></div>
     </div>
     <div class="info-row">
       <div class="dot-ic">🕕</div>
-      <div><div class="value">6:00 p.m.</div></div>
+      <div><div class="value">18:00</div></div>
     </div>
     <button class="btn" onclick="addToCalendar()">📅 &nbsp;Agregar al Calendario</button>
   </div>
@@ -258,7 +322,8 @@
     <div class="info-row">
       <div class="dot-ic">📍</div>
       <div>
-        <div class="value">Conjunto Tabaku Central</div>
+        <div class="label">Lugar</div>
+        <div class="value" style="text-transform:none;">Conjunto Tabaku Central</div>
         <div class="sub">Cra. 82a #6-37, Kennedy, Bogotá, D.C., Colombia</div>
       </div>
     </div>
@@ -301,8 +366,12 @@
         </div>
       </div>
       <div>
-        <label for="guests">¿Cuántas personas asistirán? *</label>
-        <select id="guests"><option>1</option><option>2</option><option>3</option><option>4</option></select>
+        <label>¿Cuántas personas asistirán? *</label>
+        <div class="seat-stepper">
+          <button type="button" class="step-btn" onclick="changeSeats(-1)" aria-label="Quitar una persona">−</button>
+          <span class="step-val" id="seatCount">1</span>
+          <button type="button" class="step-btn" onclick="changeSeats(1)" aria-label="Agregar una persona">+</button>
+        </div>
       </div>
       <button type="submit" class="btn">✈️ &nbsp;Confirmar Asistencia</button>
       <div class="rsvp-status" id="rsvpStatus"></div>
@@ -318,6 +387,10 @@
 </footer>
 
 <script>
+  function enterInvitation(){
+    document.getElementById('welcomeOverlay').classList.add('hidden');
+  }
+
   const target = new Date("2026-09-12T18:00:00-05:00").getTime();
   function updateCountdown(){
     const diff = target - new Date().getTime();
@@ -340,12 +413,20 @@
     document.getElementById('btn-no').classList.toggle('active', !val);
   }
 
+  let seats = 1;
+  function changeSeats(delta){
+    seats = Math.max(1, Math.min(10, seats + delta));
+    document.getElementById('seatCount').textContent = seats;
+  }
+
   document.getElementById('rsvpForm').addEventListener('submit', function(e){
     e.preventDefault();
     const name = document.getElementById('name').value;
     document.getElementById('rsvpStatus').textContent = '¡Gracias, ' + name.split(' ')[0] + '! Tu respuesta fue registrada (demo).';
     this.reset();
     setAttend(true);
+    seats = 1;
+    document.getElementById('seatCount').textContent = seats;
   });
 
   function addToCalendar(){
