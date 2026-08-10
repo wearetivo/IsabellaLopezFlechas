@@ -261,7 +261,7 @@
     aspect-ratio:4/5; border-radius:3px; overflow:hidden;
     background:#eee;
   }
-  .polaroid .ph img{ width:100%; height:100%; object-fit:cover;}
+  .polaroid .ph img{ width:100%; height:100%; object-fit:cover; cursor:pointer;}
 
   /* date/location rows */
   .info-row{ display:flex; gap:14px; align-items:flex-start; margin-bottom:18px;}
@@ -303,7 +303,28 @@
     width:230px; margin:22px auto 0; background:#fff; padding:0;
     border-radius:10px; overflow:hidden; box-shadow:0 14px 30px -8px rgba(0,0,0,.25);
   }
-  .dresscode-photo img{ width:100%; display:block;}
+  .dresscode-photo img{ width:100%; display:block; cursor:pointer;}
+
+  /* ===== LIGHTBOX ===== */
+  .lightbox-overlay{
+    position:fixed; inset:0; z-index:400;
+    background:rgba(10,10,12,.88);
+    display:flex; align-items:center; justify-content:center; padding:24px;
+    opacity:0; visibility:hidden;
+    transition:opacity .3s ease, visibility .3s ease;
+  }
+  .lightbox-overlay.open{ opacity:1; visibility:visible;}
+  .lightbox-overlay img{
+    max-width:100%; max-height:88vh; border-radius:10px;
+    box-shadow:0 24px 70px -10px rgba(0,0,0,.6);
+    cursor:default;
+  }
+  .lightbox-close{
+    position:absolute; top:18px; right:18px; width:42px; height:42px; border-radius:50%;
+    background:rgba(255,255,255,.15); backdrop-filter:blur(6px);
+    color:#fff; display:flex; align-items:center; justify-content:center;
+    font-size:1.6rem; line-height:1; cursor:pointer; border:1px solid rgba(255,255,255,.25);
+  }
 
   /* RSVP */
   form{ display:flex; flex-direction:column; gap:20px; margin-top:4px;}
@@ -455,11 +476,11 @@
       Recuerdos Inolvidables
     </h3>
     <div class="gallery-stack">
-      <div class="polaroid"><div class="ph"><img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/2.webp" alt="Isabella foto 1"></div></div>
-      <div class="polaroid"><div class="ph"><img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/3.webp" alt="Isabella foto 2"></div></div>
-      <div class="polaroid"><div class="ph"><img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/4.webp" alt="Isabella foto 3"></div></div>
-      <div class="polaroid"><div class="ph"><img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/5.webp" alt="Isabella foto 4"></div></div>
-      <div class="polaroid"><div class="ph"><img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/6.webp" alt="Isabella foto 5"></div></div>
+      <div class="polaroid"><div class="ph"><img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/2.webp" alt="Isabella foto 1" onclick="openLightbox(this.src)"></div></div>
+      <div class="polaroid"><div class="ph"><img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/3.webp" alt="Isabella foto 2" onclick="openLightbox(this.src)"></div></div>
+      <div class="polaroid"><div class="ph"><img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/4.webp" alt="Isabella foto 3" onclick="openLightbox(this.src)"></div></div>
+      <div class="polaroid"><div class="ph"><img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/5.webp" alt="Isabella foto 4" onclick="openLightbox(this.src)"></div></div>
+      <div class="polaroid"><div class="ph"><img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/6.webp" alt="Isabella foto 5" onclick="openLightbox(this.src)"></div></div>
     </div>
   </div>
 
@@ -526,7 +547,7 @@
       Código de Vestimenta
     </h3>
     <div class="dresscode-photo">
-      <img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/7.webp" alt="Código de vestimenta - tonos de azul y plateado">
+      <img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/7.webp" alt="Código de vestimenta - tonos de azul y plateado" onclick="openLightbox(this.src)">
     </div>
   </div>
 
@@ -575,32 +596,6 @@
     </form>
   </div>
 
-  <!-- WALLET / GUEST ACTIONS -->
-  <div class="card wallet-card">
-    <div class="badge" style="left:50%; transform:translateX(-50%);">
-      <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>
-    </div>
-    <h3 class="title" style="justify-content:center;">Guarda tu invitación</h3>
-    <p class="wsub">Llévala en tu bolsillo — aparece sola el día del evento.</p>
-
-    <div class="wallet-stack">
-      <div class="back purple"></div>
-      <div class="back teal"></div>
-      <div class="wallet-front">
-        <div class="wtop"><span>Google Wallet</span><span class="wdot"></span></div>
-        <div>
-          <div class="wname">Isabella López Flechas</div>
-          <div class="wdate">12 sept</div>
-        </div>
-        <div class="wbar"></div>
-      </div>
-    </div>
-
-    <button class="btn-black" onclick="alert('Funcionalidad de demostración: aquí se descargaría el pase de Google Wallet.')">
-      <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
-      Añadir a Google Wallet
-    </button>
-  </div>
 
 </div>
 
@@ -611,6 +606,12 @@
 </footer>
 
 <audio id="bgAudio" loop preload="none"></audio>
+
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-close" onclick="closeLightbox()">&times;</div>
+  <img id="lightboxImg" src="" alt="" onclick="event.stopPropagation()">
+</div>
 
 <script>
   function enterInvitation(){
@@ -693,6 +694,14 @@
       a.click();
     }
     document.getElementById('calMenu').classList.remove('open');
+  }
+
+  function openLightbox(src){
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox(){
+    document.getElementById('lightbox').classList.remove('open');
   }
 
   let playing = false;
