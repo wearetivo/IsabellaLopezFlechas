@@ -52,7 +52,7 @@
   .welcome-overlay.hidden{ opacity:0; visibility:hidden; pointer-events:none;}
   .welcome-bg{
     position:absolute; inset:0;
-    background-image:url('https://d9ik8zwqn6h1v.cloudfront.net/invitations/6a77b914c34ff13032363a37/images/1786231244763-nenu80fctzg_full.webp');
+    background-image:url('https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/1.png');
     background-size:cover; background-position:54% 20%;
     filter:blur(6px) brightness(.75); transform:scale(1.1);
   }
@@ -105,7 +105,7 @@
   }
   .hero-img{
     position:absolute; inset:0; width:100%; height:100%;
-    background-image:url('https://d9ik8zwqn6h1v.cloudfront.net/invitations/6a77b914c34ff13032363a37/images/1786231244763-nenu80fctzg_full.webp');
+    background-image:url('https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/1.png');
     background-size:cover; background-position:54% 7%;
   }
   .hero-tint{ position:absolute; inset:0; background:rgba(0,0,0,.32);}
@@ -379,11 +379,11 @@
       Recuerdos Inolvidables
     </h3>
     <div class="gallery-stack">
-      <div class="polaroid"><div class="ph"><img src="https://d9ik8zwqn6h1v.cloudfront.net/invitations/6a77b914c34ff13032363a37/images/1786331423102-j8df65swo5_full.webp" alt="Isabella con la luna"></div></div>
-      <div class="polaroid"><div class="ph"><img src="https://d9ik8zwqn6h1v.cloudfront.net/invitations/6a77b914c34ff13032363a37/images/1786231464469-qey4e9fsfqa_full.webp" alt="Isabella con sus zapatos"></div></div>
-      <div class="polaroid"><div class="ph"><img src="https://d9ik8zwqn6h1v.cloudfront.net/invitations/6a77b914c34ff13032363a37/images/1786231454828-uevxkzz25v_full.webp" alt="Isabella entre palmeras"></div></div>
-      <div class="polaroid"><div class="ph"><img src="https://d9ik8zwqn6h1v.cloudfront.net/invitations/6a77b914c34ff13032363a37/images/1786231467795-tpocxo5iq59_full.webp" alt="Retrato de Isabella"></div></div>
-      <div class="polaroid"><div class="ph"><img src="https://d9ik8zwqn6h1v.cloudfront.net/invitations/6a77b914c34ff13032363a37/images/1786231461391-gmf8jydpybe_full.webp" alt="Isabella bajo la pérgola"></div></div>
+      <div class="polaroid"><div class="ph"><img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/2.webp" alt="Isabella foto 1"></div></div>
+      <div class="polaroid"><div class="ph"><img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/3.webp" alt="Isabella foto 2"></div></div>
+      <div class="polaroid"><div class="ph"><img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/4.webp" alt="Isabella foto 3"></div></div>
+      <div class="polaroid"><div class="ph"><img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/5.webp" alt="Isabella foto 4"></div></div>
+      <div class="polaroid"><div class="ph"><img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/6.webp" alt="Isabella foto 5"></div></div>
     </div>
   </div>
 
@@ -450,7 +450,7 @@
       Código de Vestimenta
     </h3>
     <div class="dresscode-photo">
-      <img src="https://d9ik8zwqn6h1v.cloudfront.net/invitations/6a77b914c34ff13032363a37/images/1786232194484-64obnu36dwv_thumb.webp" alt="Código de vestimenta - tonos de azul y plateado">
+      <img src="https://raw.githubusercontent.com/wearetivo/IsabellaLopezFlechas/a1d223d0dc442bd928a52cc5946419a498d0ed95/7.webp" alt="Código de vestimenta - tonos de azul y plateado">
     </div>
   </div>
 
