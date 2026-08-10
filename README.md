@@ -6,7 +6,7 @@
 <title>Isabella López Flechas · XV Años</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600;1,700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600;1,700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --accent:#4a90e2;
@@ -83,6 +83,71 @@
   .welcome-card h2{
     font-size:1.35rem; font-weight:700; color:#1c1917; line-height:1.35; margin-bottom:14px;
   }
+  .mom-name{
+    font-family:'Great Vibes', cursive;
+    font-weight:400;
+    font-size:1.65em;
+    color:var(--accent-dark);
+    display:inline-block;
+    line-height:1;
+    padding:0 2px;
+  }
+
+  /* ===== ENVELOPE OPENING ANIMATION ===== */
+  .envelope-screen{
+    position:fixed; inset:0; z-index:300;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px;
+    background:linear-gradient(160deg,#25324f 0%, #3a73b8 55%, #6fa8e0 100%);
+    transition:opacity .6s ease, visibility .6s ease;
+  }
+  .envelope-screen.hidden{ opacity:0; visibility:hidden; pointer-events:none;}
+  .envelope-wrap{
+    position:relative; width:250px; height:165px; cursor:pointer;
+    perspective:900px;
+  }
+  .envelope-back{
+    position:absolute; inset:0; border-radius:10px; overflow:hidden;
+    background:linear-gradient(135deg,#ffffff,#eef2f9);
+    box-shadow:0 22px 48px -12px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.15);
+  }
+  .envelope-back::before, .envelope-back::after{
+    content:''; position:absolute; bottom:0; width:0; height:0; border-style:solid;
+  }
+  .envelope-back::before{ left:0; border-width:0 0 78px 125px; border-color:transparent transparent rgba(74,144,226,.14) transparent;}
+  .envelope-back::after{ right:0; border-width:0 125px 78px 0; border-color:transparent transparent rgba(58,115,184,.14) transparent;}
+  .envelope-letter{
+    position:absolute; left:14px; right:14px; top:16px; bottom:14px;
+    background:#fff; border-radius:6px;
+    box-shadow:0 8px 20px rgba(0,0,0,.18);
+    display:flex; align-items:center; justify-content:center;
+    z-index:2; transform:translateY(0);
+    transition:transform .9s cubic-bezier(.22,.9,.32,1.2) .35s;
+  }
+  .envelope-letter .monogram{ font-family:'Great Vibes', cursive; font-size:2.6rem; color:var(--accent-dark);}
+  .envelope-flap{
+    position:absolute; top:0; left:0; width:100%; height:52%;
+    background:linear-gradient(135deg, var(--accent), var(--accent-dark));
+    clip-path:polygon(0 0,100% 0,50% 100%);
+    transform-origin:top center;
+    transition:transform .7s cubic-bezier(.4,0,.2,1);
+    z-index:3; box-shadow:0 6px 14px rgba(0,0,0,.2);
+  }
+  .envelope-seal{
+    position:absolute; top:38%; left:50%; transform:translate(-50%,-50%);
+    width:44px; height:44px; border-radius:50%;
+    background:linear-gradient(135deg, var(--accent-dark), var(--accent));
+    display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.2rem;
+    box-shadow:0 4px 10px rgba(0,0,0,.3); z-index:4;
+    transition:opacity .3s ease, transform .3s ease;
+  }
+  .envelope-wrap.open .envelope-flap{ transform:rotateX(180deg);}
+  .envelope-wrap.open .envelope-seal{ opacity:0; transform:translate(-50%,-50%) scale(.5);}
+  .envelope-wrap.open .envelope-letter{ transform:translateY(-118px) scale(1.04);}
+  .envelope-hint{
+    font-family:'Poppins',sans-serif; color:#fff; font-size:.95rem; letter-spacing:.02em;
+    animation:pulseHint 1.8s ease-in-out infinite;
+  }
+  @keyframes pulseHint{ 0%,100%{opacity:.55;} 50%{opacity:1;} }
   .welcome-card h3{
     font-size:clamp(1.8rem, 8vw, 2.5rem); font-weight:700; color:var(--accent); line-height:1.15; margin-bottom:16px;
   }
@@ -315,8 +380,19 @@
   <svg class="ic" viewBox="0 0 24 24" id="audioIcon"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>
 </button>
 
+<!-- ENVELOPE OPENING ANIMATION -->
+<div class="envelope-screen" id="envelopeScreen">
+  <div class="envelope-wrap" id="envelopeWrap" onclick="openEnvelope()">
+    <div class="envelope-back"></div>
+    <div class="envelope-letter"><span class="monogram">I</span></div>
+    <div class="envelope-flap"></div>
+    <div class="envelope-seal">💌</div>
+  </div>
+  <div class="envelope-hint">Toca el sobre para abrir tu invitación</div>
+</div>
+
 <!-- WELCOME MODAL -->
-<div class="welcome-overlay" id="welcomeOverlay">
+<div class="welcome-overlay hidden" id="welcomeOverlay">
   <div class="welcome-bg"></div>
   <div class="welcome-tint"></div>
   <div class="welcome-glow"></div>
@@ -324,7 +400,7 @@
     <div class="welcome-icon">
       <svg viewBox="0 0 24 24" fill="#206cc6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"/><path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17"/><path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7"/><path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z"/></svg>
     </div>
-    <h2>Su mamá, Johana Flechas Palomino tiene el gusto de invitarte a celebrar los 15 de su princesa</h2>
+    <h2>Su mamá, <span class="mom-name">Johana Flechas Palomino</span> tiene el gusto de invitarte a celebrar los 15 de su princesa</h2>
     <h3>Isabella López Flechas</h3>
     <p class="tagline">Te esperamos con mucha alegria</p>
     <button class="btn-enter" onclick="enterInvitation()">
@@ -539,6 +615,16 @@
 <script>
   function enterInvitation(){
     document.getElementById('welcomeOverlay').classList.add('hidden');
+  }
+
+  function openEnvelope(){
+    const wrap = document.getElementById('envelopeWrap');
+    if(wrap.classList.contains('open')) return;
+    wrap.classList.add('open');
+    setTimeout(function(){
+      document.getElementById('envelopeScreen').classList.add('hidden');
+      document.getElementById('welcomeOverlay').classList.remove('hidden');
+    }, 1050);
   }
 
   const target = new Date("2026-09-12T18:00:00-05:00").getTime();
